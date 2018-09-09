@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (4.7.3)
+  - AlamofireImage (3.3.1):
+    - Alamofire (~> 4.5)
+  - PKHUD (5.1.0)
+
+DEPENDENCIES:
+  - AlamofireImage (~> 3.3)
+  - PKHUD (~> 5.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - PKHUD
+
+SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
+  PKHUD: 62ea46a1e88c4def1da784878d199bb54c841e3c
+
+PODFILE CHECKSUM: c3d4e6767a897f789a4fbc1fa054f07a3b290f59
+
+COCOAPODS: 1.5.3

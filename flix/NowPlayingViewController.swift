@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import PKHUD
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource {
 
@@ -22,12 +23,18 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToResfresh(_:)), for: .valueChanged)
+        
         tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
+        
+        HUD.dimsBackground = true
+        HUD.allowsInteraction = false
+        
         fetchMovies()
     }
     
     @objc func didPullToResfresh(_ refreshControl: UIRefreshControl) {
+        HUD.show(.progress)
         fetchMovies()
     }
     
@@ -47,7 +54,11 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
                 // movies is a local variable with local scope
                 self.movies = movies    //self.movies is the global variable
                 self.tableView.reloadData() //network requests load slower than the app set-up. need to reloadData once network request data comes in
-                self.refreshControl.endRefreshing()
+                
+                HUD.hide(afterDelay: 1.0)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                    self.refreshControl.endRefreshing()
+                })
             }
         }
         task.resume()
@@ -70,8 +81,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let baseURLString = "https://image.tmdb.org/t/p/w500"
         let posterURL = URL(string: baseURLString + posterPathString)!
         cell.posterImageView.af_setImage(withURL: posterURL)
-        
-        
         
         return cell
     }
