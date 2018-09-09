@@ -2,7 +2,7 @@
 
 # Project 1 - *Flix*
 
-**Flix** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flix** is a movies app using the [The Movie Database API](https://developers.themoviedb.org/).
 
 Time spent: **X** hours spent in total
 
