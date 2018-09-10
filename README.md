@@ -43,7 +43,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Describe any challenges encountered while building the app:
+1. Difficulty synchronizing "pull to refresh" refreshControl icon and HUD loading state icon
+2. How to remove refreshControl icon when pullToRefresh is called, so that only the HUD loading state icon shows instead
 
 ## License
 
