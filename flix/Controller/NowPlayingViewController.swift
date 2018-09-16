@@ -11,7 +11,7 @@ import AlamofireImage
 import PKHUD
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource {
-
+    
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -83,6 +83,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         cell.posterImageView.af_setImage(withURL: posterURL)
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell) {
+            let movie = movies[indexPath.row]
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.movie = movie
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
