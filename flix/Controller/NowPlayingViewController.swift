@@ -94,7 +94,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             
         }
     }
-    
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
