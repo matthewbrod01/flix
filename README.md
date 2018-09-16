@@ -49,7 +49,7 @@ Describe any challenges encountered while building the app:
 
 ## License
 
-    Copyright [2018] [Matthew Rodriguez]
+    Copyright 2018 Matthew Rodriguez
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -71,7 +71,7 @@ Time spent: **X** hours spent in total
 
 The following **required** functionality is completed:
 
-- [ ] User can tap a cell to see a detail view (+5pts)
+- [x] User can tap a cell to see a detail view (+5pts)
 - [ ] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView (+5pts)
 
 The following **stretch** features are implemented:
@@ -86,6 +86,8 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
+- [x] User can now also see the movie's Rating
+- [x] Overview Label text is now top-left-aligned for better user experience
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
