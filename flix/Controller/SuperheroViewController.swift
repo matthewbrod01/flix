@@ -8,6 +8,8 @@
 
 import UIKit
 import AlamofireImage
+import PKHUD
+
 
 // SuperheroVC is also UICollectionViewDataSource so that collectionView.dataSource can be assigned to itself
 // To have SuperheroVC conform to protocol of UICollectionViewDataSource, we have to implement specific methods
@@ -17,11 +19,35 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var movies: [[String: Any]] = []
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Instantiate a Refresh Control obj
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(SuperheroViewController.didPullToRefresh(_:)), for: .valueChanged)
+        
+        collectionView.insertSubview(refreshControl, at: 0)
         collectionView.dataSource = self
+        
+        HUD.dimsBackground = true
+        HUD.allowsInteraction = false
+        
+        // Set spacing of cells based on number of cells per line and minimum spacing
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellsPerLine: CGFloat = 2
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = layout.minimumInteritemSpacing
+        let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+        let width = collectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
+        layout.itemSize = CGSize(width: width, height: width / 2 * 3)
+        
+        fetchMovies()
+    }
+    
+    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+        HUD.show(.progress)
         fetchMovies()
     }
     
@@ -47,7 +73,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     func fetchMovies() {
         // Network Request > JSON data returned > Parse JSON data > Turn into
         // Swift Dictionary > Access Keys of Dictionary
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/363088/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -61,12 +87,12 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
                 self.movies = movies    //self.movies is the global variable
                 self.collectionView.reloadData() //network requests load slower than the app set-up. need to reloadData once network request data comes in
                 
-                /*
-                 HUD.hide(afterDelay: 1.0)
-                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                 self.refreshControl.endRefreshing()
-                 })
-                 */
+                
+                HUD.hide(afterDelay: 1.0)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                    self.refreshControl.endRefreshing()
+                })
+                
             }
         }
         task.resume()

@@ -72,7 +72,7 @@ Time spent: **X** hours spent in total
 The following **required** functionality is completed:
 
 - [x] User can tap a cell to see a detail view (+5pts)
-- [ ] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView (+5pts)
+- [x] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView (+5pts)
 
 The following **stretch** features are implemented:
 
@@ -85,9 +85,10 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
-- [x] User can now also see the movie's Rating
+- List anything else that you can get done to improve the app functionality!
+- [x] User can now also see the movie's Rating in Detail View
 - [x] Overview Label text is now top-left-aligned for better user experience
+- [x] Pull-to-refresh added to Superhero Colleciton View
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
