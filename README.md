@@ -92,14 +92,14 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Error handling of missing trailer links
+2. Best practices for dismissing modal segue. Other examples of working with WKWebView
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/G5iWYK2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/1TRifLW.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -107,6 +107,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app:
 Difficulty figuring out how to set up the modal segue, and how to dismiss the modal view.
+App crashes if Superhero movie does not have a trailer link on YouTube. How would I fix this?
 
 ## License
 
