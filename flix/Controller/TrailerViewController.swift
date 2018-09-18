@@ -14,14 +14,7 @@ class TrailerViewController: UIViewController, WKUIDelegate {
     var movie: [String: Any]?
     var URLString: String = ""
     var youtubeLinks: [[String: Any]] = []
-    var webView: WKWebView!
-    
-    override func loadView() {
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.uiDelegate = self
-        view = webView
-    }
+    @IBOutlet weak var webView: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +40,6 @@ class TrailerViewController: UIViewController, WKUIDelegate {
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let youtubeLinks = dataDictionary["results"] as! [[String: Any]]
-                // movies is a local variable with local scope
                 let trailerDictionary = youtubeLinks[0]
                 let trailerKey = trailerDictionary["key"] as! String
                 let trailerString = "https://www.youtube.com/watch?v=\(trailerKey)"
