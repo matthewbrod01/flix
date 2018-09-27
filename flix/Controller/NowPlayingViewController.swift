@@ -27,6 +27,11 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
         
+        // set scroll height so that app doesn't calculate thousands of cells
+        tableView.estimatedRowHeight = 150
+        // set row height to autolayout constraints dimension
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         HUD.dimsBackground = true
         HUD.allowsInteraction = false
         
