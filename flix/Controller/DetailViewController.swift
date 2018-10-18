@@ -18,12 +18,14 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     
-    var movie: [String: Any]?
+    //var movie: [String: Any]?
+    var movie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let movie = movie {
+            /*
             titleLabel.text = movie["title"] as? String
             releaseDateLabel.text = movie["release_date"] as? String
             if let voteAverage = movie["vote_average"] as? Double {
@@ -43,7 +45,20 @@ class DetailViewController: UIViewController {
             
             let posterURL = URL(string: baseURLString + posterPathString)!
             posterImageView.af_setImage(withURL: posterURL)
+            */
             
+            titleLabel.text = movie.title
+            releaseDateLabel.text = movie.releaseDate
+            if let voteAverage = movie.voteAverage as Double? {
+                ratingLabel.text = String(voteAverage)
+            } else {
+                ratingLabel.text = "Null"
+            }
+            overviewLabel.text = movie.overview
+            overviewLabel.sizeToFit()
+            
+            backdropImageView.af_setImage(withURL: movie.backdropUrl!)
+            posterImageView.af_setImage(withURL: movie.posterUrl!)
         }
     }
 

@@ -15,7 +15,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var movies: [[String: Any]] = []
+    //var movies: [[String: Any]] = []
+    var movies: [Movie] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -44,8 +45,19 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     }
     
     func fetchMovies() {
+        MovieApiManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
+            if let movies = movies {
+                self.movies = movies
+                self.tableView.reloadData()
+                HUD.hide(afterDelay: 1.0)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                    self.refreshControl.endRefreshing()
+                })
+            }
+        }
         // Network Request > JSON data returned > Parse JSON data > Turn into
         // Swift Dictionary > Access Keys of Dictionary
+        /*
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -56,8 +68,20 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let movies = dataDictionary["results"] as! [[String: Any]]
+                
+                /*
                 // movies is a local variable with local scope
                 self.movies = movies    //self.movies is the global variable
+                */
+                
+                /*
+                self.movies = []
+                for dictionary in movies {
+                    let movie = Movie(dictionary: dictionary)
+                    self.movies.append(movie)
+                }
+                */
+                
                 self.tableView.reloadData() //network requests load slower than the app set-up. need to reloadData once network request data comes in
                 
                 HUD.hide(afterDelay: 1.0)
@@ -67,6 +91,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             }
         }
         task.resume()
+        */
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,9 +101,15 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
+        cell.movie = movies[indexPath.row]
+        
+        return cell
+        
+        /*
         let movie = movies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
+        
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         
@@ -88,6 +119,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         cell.posterImageView.af_setImage(withURL: posterURL)
         
         return cell
+        */
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
